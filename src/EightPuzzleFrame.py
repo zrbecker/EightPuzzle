@@ -19,9 +19,10 @@ class EightPuzzleFrame(wx.Frame):
         sizer = wx.GridBagSizer(hgap=10, vgap=10)
         self.puzzle = EightPuzzle(self, size=None, filename='funny-cat.jpg',
             puzzle_size=3, free_piece=8)
-        self.btn_new = wx.Button(self, label='New Puzzle', size=(100, 20))
-        self.btn_image = wx.Button(self, label='New Image', size=(100, 20))
-        self.btn_solve = wx.Button(self, label='Solve', size=(100, 20))
+        _, btn_h = wx.Button.GetDefaultSize()
+        self.btn_new = wx.Button(self, label='New Puzzle', size=(100, btn_h))
+        self.btn_image = wx.Button(self, label='New Image', size=(100, btn_h))
+        self.btn_solve = wx.Button(self, label='Solve', size=(100, btn_h))
         sizer.Add(self.puzzle, pos=(0, 0), span=(4, 1), flag=wx.EXPAND)
         sizer.Add(self.btn_new, pos=(0, 1))
         sizer.Add(self.btn_image, pos=(1, 1))
