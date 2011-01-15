@@ -48,7 +48,7 @@ class EightPuzzleFrame(wx.Frame):
             self.GetSizer().Fit(self)
         dlg.Destroy()
 
-    def agent_finished(self):
+    def _agent_finished(self):
         self.agent_thread = None
         self.btn_new.Enable()
         self.btn_image.Enable()
@@ -60,19 +60,20 @@ class EightPuzzleFrame(wx.Frame):
             self.btn_new.Disable()
             self.btn_image.Disable()
             self.btn_solve.SetLabel('Stop')
-            self.agent_thread = SolverThread(self)
+            self.agent_thread = SolverThread(self, self.puzzle.model)
             self.agent_thread.start()
-            self.puzzle.Bind(wx.EVT_LEFT_DOWN, None)
+            self.puzzle.Unbind(wx.EVT_LEFT_DOWN)
         else:
             self.agent_thread.stop()
 
 
 class SolverThread(threading.Thread):
-    def __init__(self, frame):
+    def __init__(self, frame, puzzle):
         threading.Thread.__init__(self)
         self.time_to_quit = threading.Event()
         self.time_to_quit.clear()
-        self.agent = None
+        problem = NPuzzleProblem(puzzle.size, puzzle)
+        self.agent = NPuzzleAgent(problem)
         self.frame = frame
 
     def stop(self):
@@ -80,10 +81,6 @@ class SolverThread(threading.Thread):
         self.time_to_quit.set()
 
     def run(self):
-        puzzle_size = self.frame.puzzle.puzzle_size
-        puzzle_state = self.frame.puzzle.model
-        problem = NPuzzleProblem(puzzle_size, puzzle_state)
-        self.agent = NPuzzleAgent(problem)
         solution = self.agent.astar_search(max_depth=80)
         if solution:
             for (r, c, _) in solution.actions:
@@ -91,7 +88,7 @@ class SolverThread(threading.Thread):
                     break
                 wx.CallAfter(self.frame.puzzle.move_tile, r, c)
                 time.sleep(1.0)
-        wx.CallAfter(self.frame.agent_finished)
+        wx.CallAfter(self.frame._agent_finished)
 
 
 if __name__ == '__main__':

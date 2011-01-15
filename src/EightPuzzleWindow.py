@@ -53,9 +53,18 @@ class EightPuzzle(wx.Window):
 
     def _init_image(self):
         self.raw_image = wx.Image(self.filename)
-        if self.raw_image.IsOk():
+        if self.raw_image.Ok():
             if self.use_picture_size:
-                self.SetSize(self.raw_image.GetSize())
+                w, h = self.raw_image.GetSize()
+                if w > 640:
+                    ratio = float(h) / w
+                    w = 640
+                    h = w * ratio
+                if h > 480:
+                    ratio = float(w) / h
+                    h = 480
+                    w = h * ratio
+                self.SetInitialSize((w, h))
         else:
             self.raw_image = None
 
