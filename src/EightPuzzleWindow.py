@@ -22,9 +22,11 @@ class EightPuzzle(wx.Window):
         self._init_puzzle()
         self.reinit_buffer = True
 
-    def set_image(self, filename):
+    def set_image(self, filename, shuffle=True):
         self.filename = filename
         self._init_image()
+        if shuffle:
+            self._init_puzzle()
         self.reinit_buffer = True
 
     def set_puzzle_size(self, puzzle_size):
