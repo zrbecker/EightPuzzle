@@ -1,2 +1,6 @@
-Only testing on Mac OS X 10.6.6 with Python 2.6
-Use command 'arch -i386 python2.6 EightPuzzleFrame.py' to run
+Tested on Ubuntu, and Mac OS X
+
+Python 2.6
+wxPython 2.8
+32 Bit
+
