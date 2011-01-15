@@ -10,7 +10,7 @@ class Agent(object):
         closed = {}
         fringe = deque()
         fringe.append(Node(None, None, self.problem.init_state, 0))
-        while fringe:
+        while fringe and self.keep_working:
             node = fringe.popleft()
             if self.problem.isgoal(node.state):
                 return node.solution()
@@ -27,7 +27,7 @@ class Agent(object):
         closed = {}
         fringe = deque()
         fringe.append(Node(None, None, self.problem.init_state, 0))
-        while fringe:
+        while fringe and self.keep_working:
             node = fringe.pop()
             if self.problem.isgoal(node.state):
                 return node.solution()
@@ -44,7 +44,7 @@ class Agent(object):
 
     def iterative_search(self):
         n = 0
-        while 1:
+        while 1 and self.keep_working:
             solution = self.depth_search(n)
             if solution is None:
                 n += 1
@@ -56,7 +56,7 @@ class Agent(object):
         fringe = []
         root = Node(None, None, self.problem.init_state, 0)
         heappush(fringe, (self.greedy_eval(root), root))
-        while fringe:
+        while fringe and self.keep_working:
             value, node = heappop(fringe)
             if self.problem.isgoal(node.state):
                 return node.solution()
@@ -76,7 +76,7 @@ class Agent(object):
         fringe = []
         root = Node(None, None, self.problem.init_state, 0)
         heappush(fringe, (self.astar_eval(root), root))
-        while fringe:
+        while fringe and self.keep_working:
             value, node = heappop(fringe)
             if self.problem.isgoal(node.state):
                 return node.solution()
@@ -99,7 +99,11 @@ class Agent(object):
     def astar_eval(self, node):
         return node.cost
 
+    def stop_working(self):
+        self.keep_working = False
+
     def __init__(self, problem, graph=True):
+        self.keep_working = True
         self.problem = problem
         self.graph = graph
 
