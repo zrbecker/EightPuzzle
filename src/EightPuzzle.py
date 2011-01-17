@@ -11,6 +11,7 @@ from EightPuzzleWindow import *
 class EightPuzzleFrame(wx.Frame):
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, title="Eight Puzzle")
+        self.SetBackgroundColour(wx.NullColor)
         self._arrage_widgets()
         self._event_handers()
         self.agent_thread = None
