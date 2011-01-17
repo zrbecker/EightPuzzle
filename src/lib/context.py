@@ -37,7 +37,7 @@ CONTEXT = (platform(), setup())
 if CONTEXT == ('mac', 'frozen'):
     APP_ROOT = os.path.dirname(os.path.dirname(unicode(sys.executable,
         sys.getfilesystemencoding())))
-    DATA = os.path.join(APP_ROOT, 'Contents','Resources') # py2app
+    DATA = os.path.join(APP_ROOT, 'Resources') # py2app
 elif CONTEXT == ('windows', 'frozen'):
     APP_ROOT = os.path.dirname(context['executable'][0])
     DATA = os.path.join(APP_ROOT, 'data') # py2exe
