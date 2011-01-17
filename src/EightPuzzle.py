@@ -5,6 +5,7 @@ import threading
 
 import wx
 
+from lib import context
 from EightPuzzleWindow import *
 
 
@@ -18,7 +19,7 @@ class EightPuzzleFrame(wx.Frame):
     def _arrage_widgets(self):
         sizer = wx.GridBagSizer(hgap=10, vgap=10)
         self.puzzle = EightPuzzle(self, size=None,
-            filename=os.path.join('..', 'data', 'funny-cat.jpg'),
+            filename=os.path.join(context.DATA, 'funny-cat.jpg'),
             puzzle_size=3, free_piece=8)
         _, btn_h = wx.Button.GetDefaultSize()
         self.btn_new = wx.Button(self, label='New Puzzle', size=(100, btn_h))
