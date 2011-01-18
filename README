@@ -1,6 +1,11 @@
-Tested on Ubuntu, and Mac OS X
+Tested on the following platforms
+Mac OS X (python 2.7 32 bit)
+Windows  (python 2.7 32 bit)
+Ubuntu (python 2.7 32 bit)
 
-Python 2.6
-wxPython 2.8
-32 Bit
+Requirements
+wxPython
+
+Mac OS X Version
+https://github.com/downloads/zrbecker/EightPuzzle/eightpuzzle_1.0_macosx.dmg
 
